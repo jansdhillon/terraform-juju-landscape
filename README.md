@@ -1,5 +1,8 @@
 # Landscape Server Terraform Product Module
 
+> [!CAUTION]
+> This module is currently **experimental** and should not be used in production.
+
 This project contains the [Terraform][Terraform] product module to deploy the [Landscape Server bundle][Landscape Server bundle].
 
 The module use the [Terraform Juju provider][Terraform Juju provider] to model the bundle deployment onto any machine environment managed by [Juju][Juju].
