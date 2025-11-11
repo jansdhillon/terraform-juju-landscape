@@ -12,6 +12,109 @@ variables {
   rabbitmq_server = {}
 }
 
+run "test_local_has_modern_amqp_interfaces_true" {
+  command = plan
+
+  override_module {
+    target = module.landscape_server
+    outputs = {
+      app_name = "landscape-server"
+      requires = {
+        inbound_amqp  = "inbound-amqp"
+        outbound_amqp = "outbound-amqp"
+        database      = "database"
+        db            = "db"
+      }
+    }
+  }
+
+  assert {
+    condition     = local.has_modern_amqp_interfaces == true
+    error_message = "local.has_modern_amqp_interfaces should be true when both inbound_amqp and outbound_amqp exist"
+  }
+
+  assert {
+    condition     = can(module.landscape_server.requires.inbound_amqp) && can(module.landscape_server.requires.outbound_amqp)
+    error_message = "Both inbound_amqp and outbound_amqp should be accessible via can()"
+  }
+}
+
+run "test_local_has_modern_amqp_interfaces_false" {
+  command = plan
+
+  override_module {
+    target = module.landscape_server
+    outputs = {
+      app_name = "landscape-server"
+      requires = {
+        database = "database"
+        db       = "db"
+      }
+    }
+  }
+
+  assert {
+    condition     = local.has_modern_amqp_interfaces == false
+    error_message = "local.has_modern_amqp_interfaces should be false when inbound_amqp or outbound_amqp don't exist"
+  }
+
+  assert {
+    condition     = !can(module.landscape_server.requires.inbound_amqp) && !can(module.landscape_server.requires.outbound_amqp)
+    error_message = "Neither inbound_amqp or outbound_amqp should not be accessible"
+  }
+}
+
+run "test_local_has_modern_postgres_interface_true" {
+  command = plan
+
+  override_module {
+    target = module.landscape_server
+    outputs = {
+      app_name = "landscape-server"
+      requires = {
+        inbound_amqp  = "inbound-amqp"
+        outbound_amqp = "outbound-amqp"
+        database      = "database"
+        db            = "db"
+      }
+    }
+  }
+
+  assert {
+    condition     = local.has_modern_postgres_interace == true
+    error_message = "local.has_modern_postgres_interace should be true when 'database' key exists in requires"
+  }
+
+  assert {
+    condition     = lookup(module.landscape_server.requires, "database", null) != null
+    error_message = "lookup for 'database' should return non-null value"
+  }
+}
+
+run "test_local_has_modern_postgres_interface_false" {
+  command = plan
+
+  override_module {
+    target = module.landscape_server
+    outputs = {
+      app_name = "landscape-server"
+      requires = {
+        db = "db"
+      }
+    }
+  }
+
+  assert {
+    condition     = local.has_modern_postgres_interace == false
+    error_message = "local.has_modern_postgres_interace should be false when 'database' key doesn't exist in requires"
+  }
+
+  assert {
+    condition     = lookup(module.landscape_server.requires, "database", null) == null
+    error_message = "lookup for 'database' should return null when key doesn't exist"
+  }
+}
+
 run "test_modern_amqp_interfaces" {
   command = plan
 
