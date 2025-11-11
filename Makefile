@@ -16,5 +16,5 @@ lint:
 
 test:
 	for m in $(MODULE_PATHS); do \
-		cd $$m && terraform test; \
+		cd $$m && terraform init && terraform test; \
 	done
