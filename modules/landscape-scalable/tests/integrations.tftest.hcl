@@ -86,8 +86,8 @@ run "test_local_has_modern_postgres_interface_true" {
   }
 
   assert {
-    condition     = lookup(module.landscape_server.requires, "database", null) != null
-    error_message = "lookup for 'database' should return non-null value"
+    condition     = can(module.landscape_server.requires.database)
+    error_message = "database should be accessible"
   }
 }
 
@@ -110,8 +110,8 @@ run "test_local_has_modern_postgres_interface_false" {
   }
 
   assert {
-    condition     = lookup(module.landscape_server.requires, "database", null) == null
-    error_message = "lookup for 'database' should return null when key doesn't exist"
+    condition     = !can(module.landscape_server.requires.database)
+    error_message = "database shouldn't be accessible"
   }
 }
 
