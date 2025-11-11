@@ -94,14 +94,10 @@ resource "juju_integration" "landscape_server_rabbitmq_server" {
 
   application {
     name = module.landscape_server.app_name
-    # Explicitly choose legacy single endpoint to disambiguate from inbound/outbound-amqp
-    endpoint = local.using_legacy_amqp ? "amqp" : null
   }
 
   application {
     name = juju_application.rabbitmq_server.name
-    # RabbitMQ charm provides a single "amqp" endpoint
-    endpoint = "amqp"
   }
 
   depends_on = [module.landscape_server, juju_application.rabbitmq_server]
@@ -127,7 +123,7 @@ resource "juju_integration" "landscape_server_postgresql" {
 
   application {
     name     = module.landscape_server.app_name
-    endpoint = module.landscape_server.requires.database
+    endpoint = try(module.landscape_server.requires.database, module.landscape_server.requires.db)
   }
 
   application {
