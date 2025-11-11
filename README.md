@@ -14,6 +14,14 @@ Use the following Make recipe to lint the modules:
 make lint
 ```
 
+## Testing
+
+Use the following Make recipe to run the tests in the module(s):
+
+```sh
+make test
+```
+
 [Terraform]: https://www.terraform.io/
 [Terraform Juju provider]: https://registry.terraform.io/providers/juju/juju/latest
 [Juju]: https://juju.is

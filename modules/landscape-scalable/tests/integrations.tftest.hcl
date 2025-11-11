@@ -1,7 +1,11 @@
 # © 2025 Canonical Ltd.
 
 variables {
-  model = "test-landscape"
+  model            = "test-landscape"
+  landscape_server = {}
+  postgresql       = {}
+  haproxy          = {}
+  rabbitmq_server  = {}
 }
 
 run "test_modern_amqp_interfaces" {

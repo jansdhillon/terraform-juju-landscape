@@ -2,18 +2,14 @@ name: Test
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main, update-pg-interface ]
   pull_request:
+    branches: [ main ]
 
 jobs:
-  terraform-test:
-    name: Terraform Test
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        module:
-          - modules/landscape-scalable
     
     steps:
       - name: Checkout
@@ -22,45 +18,26 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
         with:
-          terraform_version: "~> 1.10"
+          terraform_version: "~> 1.10.0"
 
-      - name: Terraform Init
-        working-directory: ${{ matrix.module }}
-        run: terraform init
+      - name: Setup TFLint
+        uses: terraform-linters/setup-tflint@v4
 
-      - name: Terraform Format Check
-        working-directory: ${{ matrix.module }}
-        run: terraform fmt -check -recursive
+      - name: Run Lint
+        run: make lint
 
-      - name: Terraform Validate
-        working-directory: ${{ matrix.module }}
-        run: terraform validate
-
-      - name: Terraform Test
-        working-directory: ${{ matrix.module }}
-        run: terraform test
-
-  tflint:
-    name: TFLint
+  test:
+    name: Test
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        module:
-          - modules/landscape-scalable
     
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup TFLint
-        uses: terraform-linters/setup-tflint@v4
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
         with:
-          tflint_version: latest
+          terraform_version: "~> 1.10.0"
 
-      - name: Init TFLint
-        working-directory: ${{ matrix.module }}
-        run: tflint --init
-
-      - name: Run TFLint
-        working-directory: ${{ matrix.module }}
-        run: tflint --recursive --disable-rule=terraform_module_pinned_source
+      - name: Run Tests
+        run: make test

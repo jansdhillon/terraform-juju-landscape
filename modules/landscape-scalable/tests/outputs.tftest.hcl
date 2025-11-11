@@ -2,7 +2,11 @@
 # Test: Output validation
 
 variables {
-  model = "test-landscape"
+  model            = "test-landscape"
+  landscape_server = {}
+  postgresql       = {}
+  haproxy          = {}
+  rabbitmq_server  = {}
 }
 
 run "validate_output_structure" {

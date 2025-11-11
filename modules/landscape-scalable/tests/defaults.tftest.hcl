@@ -1,8 +1,11 @@
 # © 2025 Canonical Ltd.
 
 variables {
-  model      = "test-landscape"
-  postgresql = {}
+  model            = "test-landscape"
+  landscape_server = {}
+  postgresql       = {}
+  haproxy          = {}
+  rabbitmq_server  = {}
 }
 
 run "plan_with_defaults" {
