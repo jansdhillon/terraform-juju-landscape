@@ -55,7 +55,7 @@ resource "juju_application" "rabbitmq_server" {
 
 locals {
   has_modern_amqp_interfaces   = can(module.landscape_server.requires.inbound_amqp) && can(module.landscape_server.requires.outbound_amqp)
-  has_modern_postgres_interace = can(module.landscape_server.requires.database)
+  has_modern_postgres_interface = can(module.landscape_server.requires.database)
 }
 
 resource "juju_integration" "landscape_server_inbound_amqp" {
@@ -127,12 +127,12 @@ resource "juju_integration" "landscape_server_postgresql" {
 
   application {
     name     = module.landscape_server.app_name
-    endpoint = local.has_modern_postgres_interace ? module.landscape_server.requires.database : module.landscape_server.requires.db
+    endpoint = local.has_modern_postgres_interface ? module.landscape_server.requires.database : module.landscape_server.requires.db
   }
 
   application {
     name     = module.postgresql.application_name
-    endpoint = local.has_modern_postgres_interace ? module.postgresql.provides.database : "db-admin"
+    endpoint = local.has_modern_postgres_interface ? module.postgresql.provides.database : "db-admin"
   }
 
 }

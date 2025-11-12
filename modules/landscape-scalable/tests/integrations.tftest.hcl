@@ -81,8 +81,8 @@ run "test_local_has_modern_postgres_interface_true" {
   }
 
   assert {
-    condition     = local.has_modern_postgres_interace == true
-    error_message = "local.has_modern_postgres_interace should be true when 'database' key exists in requires"
+    condition     = local.has_modern_postgres_interface == true
+    error_message = "local.has_modern_postgres_interface should be true when 'database' key exists in requires"
   }
 
   assert {
@@ -105,8 +105,8 @@ run "test_local_has_modern_postgres_interface_false" {
   }
 
   assert {
-    condition     = local.has_modern_postgres_interace == false
-    error_message = "local.has_modern_postgres_interace should be false when 'database' key doesn't exist in requires"
+    condition     = local.has_modern_postgres_interface == false
+    error_message = "local.has_modern_postgres_interface should be false when 'database' key doesn't exist in requires"
   }
 
   assert {
@@ -164,7 +164,7 @@ run "test_postgres_interface_switching" {
 
   assert {
     condition = (
-      local.has_modern_postgres_interace == true ?
+      local.has_modern_postgres_interface == true ?
       length([for e in juju_integration.landscape_server_postgresql.application : e if e.endpoint == module.landscape_server.requires.database]) > 0 : true
     )
     error_message = "When modern Postgres interface is available, should use 'database' endpoint"
@@ -172,7 +172,7 @@ run "test_postgres_interface_switching" {
 
   assert {
     condition = (
-      local.has_modern_postgres_interace == false ?
+      local.has_modern_postgres_interface == false ?
       length([for e in juju_integration.landscape_server_postgresql.application : e if e.endpoint == module.landscape_server.requires.db]) > 0 : true
     )
     error_message = "When legacy Postgres interface is present, should use 'db' endpoint"
@@ -180,7 +180,7 @@ run "test_postgres_interface_switching" {
 
   assert {
     condition = (
-      local.has_modern_postgres_interace == true ?
+      local.has_modern_postgres_interface == true ?
       length([for e in juju_integration.landscape_server_postgresql.application : e if e.endpoint == module.postgresql.provides.database]) > 0 : true
     )
     error_message = "When modern Postgres interface is available, should use PostgreSQL 'database' provides endpoint"
@@ -188,7 +188,7 @@ run "test_postgres_interface_switching" {
 
   assert {
     condition = (
-      local.has_modern_postgres_interace == false ?
+      local.has_modern_postgres_interface == false ?
       length([for e in juju_integration.landscape_server_postgresql.application : e if e.endpoint == "db-admin"]) > 0 : true
     )
     error_message = "When legacy Postgres interface is present, should use 'db-admin' endpoint"

@@ -1,11 +1,11 @@
-name: Format check
+name: Lint and format
 
 on:
   pull_request:
   workflow_dispatch:
 
 jobs:
-  fmt-check:
+  check:
     runs-on: ubuntu-latest
     
     steps:
