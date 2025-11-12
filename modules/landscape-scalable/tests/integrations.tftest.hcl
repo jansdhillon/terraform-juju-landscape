@@ -122,7 +122,7 @@ run "test_modern_amqp_interfaces" {
     condition = (
       local.has_modern_amqp_interfaces == true ?
       (length(juju_integration.landscape_server_inbound_amqp) == 1 &&
-       length(juju_integration.landscape_server_outbound_amqp) == 1) : true
+      length(juju_integration.landscape_server_outbound_amqp) == 1) : true
     )
     error_message = "When modern AMQP interfaces are present, both inbound and outbound integrations should be created"
   }
