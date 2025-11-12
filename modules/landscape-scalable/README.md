@@ -1,4 +1,4 @@
-# Landscape Server Scalable Product Module
+# Landscape Scalable Product Module
 
 This module requires a bootstrapped Juju cloud with a model created within it, the name of which can be provided as `model`.
 
@@ -59,6 +59,4 @@ Upon being applied, the module exports the following outputs:
 
 ## Notes
 
-- This plan is based on the [Landscape Server charm bundle](https://github.com/canonical/landscape-charm/blob/main/bundle-examples/bundle.yaml)
-- [Landscape Server charm module](https://github.com/canonical/landscape-charm/tree/main/terraform)
-- See the plan in action in [a preconfigured, local Landscape demo](https://github.com/jansdhillon/landscape-demo)
+- This module uses the [Landscape Server charm module](https://github.com/canonical/landscape-charm/tree/main/terraform)
