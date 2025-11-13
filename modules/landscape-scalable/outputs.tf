@@ -31,7 +31,7 @@ locals {
 }
 
 output "self_signed_server" {
-  value = local.haproxy_self_signed ? true : false
+  value = local.haproxy_self_signed
 }
 
 output "has_modern_amqp_relations" {

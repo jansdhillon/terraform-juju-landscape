@@ -1,8 +1,5 @@
 # Landscape Terraform Product Modules
 
-> [!CAUTION]
-> This repository is currently **experimental** and should not be used in production.
-
 This project contains [Terraform][Terraform] product modules to deploy Landscape, including the Landscape Server charm and other required applications.
 
 The module use the [Terraform Juju provider][Terraform Juju provider] to model the bundle deployment onto any machine environment managed by [Juju][Juju].

@@ -4,46 +4,10 @@ mock_provider "juju" {}
 
 variables {
   model = "test-landscape"
-  landscape_server = {
-    revision = 150
-  }
-  postgresql      = {}
-  haproxy         = {}
-  rabbitmq_server = {}
-}
-
-run "plan_with_defaults" {
-  command = plan
-
-  assert {
-    condition     = module.landscape_server.app_name == "landscape-server"
-    error_message = "Landscape server app name should default to 'landscape-server'"
-  }
-
-  assert {
-    condition     = module.haproxy.app_name == "haproxy"
-    error_message = "HAProxy app name should default to 'haproxy'"
-  }
-
-  assert {
-    condition     = module.postgresql.application_name == "postgresql"
-    error_message = "PostgreSQL app name should default to 'postgresql'"
-  }
-
-  assert {
-    condition     = juju_application.rabbitmq_server.name == "rabbitmq-server"
-    error_message = "RabbitMQ app name should default to 'rabbitmq-server'"
-  }
 }
 
 run "validate_channel_defaults" {
   command = plan
-
-  variables {
-    landscape_server = {
-      revision = 150
-    }
-  }
 
   assert {
     condition     = var.landscape_server.channel == "25.10/edge"
@@ -63,6 +27,30 @@ run "validate_channel_defaults" {
   assert {
     condition     = var.rabbitmq_server.channel == "latest/edge"
     error_message = "RabbitMQ channel should default to 'latest/edge'"
+  }
+}
+
+run "validate_rev_defaults" {
+  command = plan
+
+  assert {
+    condition     = var.landscape_server.revision == null
+    error_message = "Landscape server revision should default to null"
+  }
+
+  assert {
+    condition     = var.postgresql.revision == null
+    error_message = "PostgreSQL revision should default to null"
+  }
+
+  assert {
+    condition     = var.haproxy.revision == null
+    error_message = "HAProxy revision should default to null"
+  }
+
+  assert {
+    condition     = var.rabbitmq_server.revision == null
+    error_message = "RabbitMQ revision should default to null"
   }
 }
 

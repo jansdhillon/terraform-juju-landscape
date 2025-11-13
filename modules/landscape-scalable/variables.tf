@@ -19,6 +19,8 @@ variable "landscape_server" {
     base        = optional(string, "ubuntu@22.04")
     units       = optional(number, 1)
   })
+
+  default = {}
 }
 
 variable "postgresql" {
@@ -26,12 +28,12 @@ variable "postgresql" {
     app_name = optional(string, "postgresql")
     channel  = optional(string, "16/stable")
     config = optional(map(string), {
-      plugin_plpython3u_enable     = true
-      plugin_ltree_enable          = true
-      plugin_intarray_enable       = true
-      plugin_debversion_enable     = true
-      plugin_pg_trgm_enable        = true
-      experimental_max_connections = 500
+      plugin_plpython3u_enable     = "true"
+      plugin_ltree_enable          = "true"
+      plugin_intarray_enable       = "true"
+      plugin_debversion_enable     = "true"
+      plugin_pg_trgm_enable        = "true"
+      experimental_max_connections = "500"
     })
     constraints = optional(string, "arch=amd64")
     resources   = optional(map(string), {})
@@ -39,6 +41,8 @@ variable "postgresql" {
     base        = optional(string, "ubuntu@24.04")
     units       = optional(number, 1)
   })
+
+  default = {}
 }
 
 variable "haproxy" {
@@ -57,6 +61,8 @@ variable "haproxy" {
     base        = optional(string, "ubuntu@22.04")
     units       = optional(number, 1)
   })
+  
+  default = {}
 }
 
 variable "rabbitmq_server" {
@@ -64,7 +70,7 @@ variable "rabbitmq_server" {
     app_name = optional(string, "rabbitmq-server")
     channel  = optional(string, "latest/edge")
     config = optional(map(string), {
-      consumer-timeout = 259200000
+      consumer-timeout = "259200000"
     })
     constraints = optional(string, "arch=amd64")
     resources   = optional(map(string), {})
@@ -72,4 +78,6 @@ variable "rabbitmq_server" {
     base        = optional(string, "ubuntu@24.04")
     units       = optional(number, 1)
   })
+
+  default = {}
 }
