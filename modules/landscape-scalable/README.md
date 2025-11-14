@@ -61,7 +61,10 @@ The Landscape Scalable product module offers the following configurable inputs:
 Default `config`:
 
 ```hcl
-{ autoregistration = "true", landscape_ppa = "ppa:landscape/self-hosted-25.10" }
+{
+  autoregistration = "true",
+  landscape_ppa    = "ppa:landscape/self-hosted-25.10"
+}
 ```
 
 #### `postgresql`
@@ -130,7 +133,9 @@ Default `config`:
 Default `config`:
 
 ```hcl
-{ consumer-timeout = "259200000" }
+{
+  consumer-timeout = "259200000"
+}
 ```
 
 ## Outputs
