@@ -12,6 +12,6 @@ landscape_server = {
 }
 
 postgresql = {
-  base    = "ubuntu@22.04"
-  channel = "14/stable"
+  base    = "ubuntu@24.04"
+  channel = "16/stable"
 }

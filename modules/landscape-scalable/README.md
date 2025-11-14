@@ -69,12 +69,12 @@ Default `config`:
 | Name          | Type        | Description                                    | Required | Default         |
 | ------------- | ----------- | ---------------------------------------------- | -------- | --------------- |
 | `app_name`    | string      | Name of the application in the Juju model      | False    | `postgresql`    |
-| `channel`     | string      | The channel to use when deploying the charm    | False    | `16/stable`     |
+| `channel`     | string      | The channel to use when deploying the charm    | False    | `14/stable`     |
 | `config`      | map(string) | Application config                             | False    | See below       |
 | `constraints` | string      | Juju constraints to apply for this application | False    | `arch=amd64`    |
 | `resources`   | map(string) | Charm resources                                | False    | `{}`            |
 | `revision`    | number      | Revision number of the charm                   | False    | `null` (latest) |
-| `base`        | string      | The operating system on which to deploy        | False    | `ubuntu@24.04`  |
+| `base`        | string      | The operating system on which to deploy        | False    | `ubuntu@22.04`  |
 | `units`       | number      | Number of units to deploy                      | False    | `1`             |
 
 Default `config`:
