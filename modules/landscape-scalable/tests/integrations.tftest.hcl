@@ -60,7 +60,7 @@ run "test_local_has_modern_amqp_relations_false" {
 
   assert {
     condition     = !can(module.landscape_server.requires.inbound_amqp) && !can(module.landscape_server.requires.outbound_amqp)
-    error_message = "Neither inbound_amqp or outbound_amqp should not be accessible when has_modern_amqp_relations is false"
+    error_message = "Neither inbound_amqp nor outbound_amqp should be accessible when has_modern_amqp_relations is false"
   }
 }
 
