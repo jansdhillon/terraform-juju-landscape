@@ -123,6 +123,8 @@ resource "juju_integration" "landscape_server_haproxy" {
 
 }
 
+# TODO: Handle both interfaces when the Landscape Charm can integrate with the modern
+# PostgreSQL interface (postgresql_client). See the `modern-pg-interface` branch.
 resource "juju_integration" "landscape_server_postgresql" {
   model = var.model
 
