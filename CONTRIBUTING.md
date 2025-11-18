@@ -6,36 +6,22 @@ To make contributions to this repository, the following software is needed to be
 
 - Juju >=3.6
 - A Juju controller bootstrapped onto a machine cloud
-- Terraform
-- A model for testing
+- A Juju model available for testing
+- Terraform or OpenTofu
+- Make
+- [TFLint](https://github.com/terraform-linters/tflint)
 
-## Development and Testing
+## Local development
 
-The Terraform modules uses the Juju provider to provision Juju resources. Please refer to the [Juju provider documentation](https://registry.terraform.io/providers/juju/juju/latest/docs) for more information.
+The Terraform modules use the Terraform provider for Juju to provision Juju resources. Please refer to the [Juju provider documentation](https://documentation.ubuntu.com/terraform-provider-juju/latest/) for more information.
 
-Make sure you have `terraform` installed:
-
-```sh
-sudo snap install terraform --classic
-```
-
-Then, in a product module directory, such as `modules/landscape-scalable`, initialise Terraform:
+In a product module directory, such as `modules/landscape-scalable`, initialize Terraform:
 
 ```sh
 terraform init
 ```
 
-Format the \*.tf files to a canonical format and style:
-
-```sh
-terraform fmt
-```
-
-Check the syntax:
-
-```sh
-terraform validate
-```
+Then, modify `terraform.tfvars.example` per `variables.tf` to pass the model name and customize the module. 
 
 Preview the changes:
 
@@ -43,16 +29,24 @@ Preview the changes:
 terraform plan
 ```
 
-## Lint and test
-
-Install `tflint`:
+If everything looks okay, apply the plan to deploy Landscape:
 
 ```sh
-sudo snap install tflint
+terraform apply
 ```
 
-Use the Make recipes:
+## Linting and running tests
+
+You can use the Make recipes to check the affect of your changes on the modules.
+
+Lint:
 
 ```sh
-make fix && make test
+make fix
+```
+
+Run tests:
+
+```sh
+make test
 ```
