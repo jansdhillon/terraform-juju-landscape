@@ -120,7 +120,7 @@ resource "juju_integration" "landscape_server_haproxy" {
     name = module.haproxy.app_name
   }
 
-  depends_on = [module.landscape_server, juju_application.rabbitmq_server]
+  depends_on = [module.landscape_server, module.haproxy]
 
 }
 
